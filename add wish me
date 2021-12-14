@@ -1,6 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
 import datetime
+import time
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -10,6 +11,7 @@ engine.setProperty('voice', voices[1].id)
 
 def speak(audio):
     engine.say(audio)
+    print(audio)
     engine.runAndWait()
 
 def takeCommand():
@@ -31,19 +33,20 @@ def takeCommand():
             return "None"
         return query
 
-def wish():
+def wishme():
     hour = int(datetime.datetime.now().hour)
+    tt = time.strftime("%I:%M %p")
 
-    if hour >= 0 and hour < 12:
-        speak("Good Morning sir!")
+    if hour>=0 and hour<=12:
+        speak(f"good morning sir, its {tt}")
 
-    elif hour >= 12 and hour < 18:
-        speak("Good Afternoon sir!")
+    if hour >=12 and hour<=18:
+        speak(f'good after noon sir, its {tt}')
 
-    else:
-        speak("Good Evening sir!")
-    speak("I am zira")
+    else
+        speak(f'good night, its {tt}')
 
 if __name__=="__main__":
-    wish()
+    wishme()
     takeCommand()
+    speak("hi")
